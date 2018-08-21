@@ -1,0 +1,14 @@
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\bin\Release\netcoreapp2.0\AWSSvcAppLib.deps.json
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\bin\Release\netcoreapp2.0\AWSSvcAppLib.runtimeconfig.json
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\bin\Release\netcoreapp2.0\AWSSvcAppLib.runtimeconfig.dev.json
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\bin\Release\netcoreapp2.0\AWSSvcAppLib.dll
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\bin\Release\netcoreapp2.0\AWSSvcAppLib.pdb
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\obj\Release\netcoreapp2.0\AWSSvcAppLib.csproj.CoreCompileInputs.cache
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\obj\Release\netcoreapp2.0\AWSSvcAppLib.AssemblyInfoInputs.cache
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\obj\Release\netcoreapp2.0\AWSSvcAppLib.AssemblyInfo.cs
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\obj\Release\netcoreapp2.0\AWSSvcAppLib.dll
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\obj\Release\netcoreapp2.0\AWSSvcAppLib.pdb
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\bin\Release\netcoreapp2.0\Microsoft.Extensions.Options.dll
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\bin\Release\netcoreapp2.0\Microsoft.Extensions.Options.xml
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\obj\Release\netcoreapp2.0\AWSSvcAppLib.csprojAssemblyReference.cache
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\DynamoDBSvcLib\DynamoDBSvcLib\obj\Release\netcoreapp2.0\AWSSvcAppLib.csproj.CopyComplete

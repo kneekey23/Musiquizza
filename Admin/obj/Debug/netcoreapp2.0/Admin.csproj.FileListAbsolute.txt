@@ -1,0 +1,14 @@
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\bin\Debug\netcoreapp2.0\Admin.deps.json
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\bin\Debug\netcoreapp2.0\Admin.runtimeconfig.json
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\bin\Debug\netcoreapp2.0\Admin.runtimeconfig.dev.json
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\bin\Debug\netcoreapp2.0\Admin.dll
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\bin\Debug\netcoreapp2.0\Admin.pdb
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\obj\Debug\netcoreapp2.0\Admin.csproj.CoreCompileInputs.cache
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\obj\Debug\netcoreapp2.0\Admin.AssemblyInfoInputs.cache
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\obj\Debug\netcoreapp2.0\Admin.AssemblyInfo.cs
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\obj\Debug\netcoreapp2.0\Admin.dll
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\obj\Debug\netcoreapp2.0\Admin.pdb
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\obj\Debug\netcoreapp2.0\Admin.csprojResolveAssemblyReference.cache
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\bin\Debug\netcoreapp2.0\AWSSvcAppLib.dll
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\bin\Debug\netcoreapp2.0\AWSSvcAppLib.pdb
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\obj\Debug\netcoreapp2.0\Admin.csproj.CopyComplete

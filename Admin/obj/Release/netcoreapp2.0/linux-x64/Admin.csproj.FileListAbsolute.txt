@@ -1,0 +1,4 @@
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\obj\Release\netcoreapp2.0\linux-x64\Admin.csprojAssemblyReference.cache
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\obj\Release\netcoreapp2.0\linux-x64\Admin.csproj.CoreCompileInputs.cache
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\obj\Release\netcoreapp2.0\linux-x64\Admin.AssemblyInfoInputs.cache
+C:\Users\nickik\Projects\Musiquizza_2\Musiquizza\Admin\obj\Release\netcoreapp2.0\linux-x64\Admin.AssemblyInfo.cs

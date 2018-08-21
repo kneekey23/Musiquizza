@@ -1,0 +1,39 @@
+﻿@model Admin.Models.QuizAnswer
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin</title>
+</head>
+<body>
+    <h1>Admin</h1>
+
+    @*<form asp-controller="Admin" asp-action="PostSong" data-ajax="true" data-ajax-method="POST">
+            <div class="form-group">
+                <label asp-for="@Model.Artist">Enter Artist</label>
+                <input type="text" class="form-control" asp-for="@Model.Artist" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Title">Enter Song Title</label>
+                <input type="text" class="form-control" asp-for="@Model.Title" />
+            </div>
+            <button type="submit" class="btn btn-success">Add song</button>
+        </form>*@
+
+    @using (Html.BeginForm("PostSong", "Admin", FormMethod.Post))
+    {
+        <div class="form-group">
+            <label for="Artist">Enter Artist</label>
+            <input type="text" class="form-control" name="Artist" />
+        </div>
+        <div class="form-group">
+            <label for="Title">Enter Song Title</label>
+            <input type="text" class="form-control" name="Title" />
+        </div>
+        <button type="submit" class="btn btn-success">Add song</button>
+    }
+</body>
+</html>
+

@@ -1,0 +1,4 @@
+{"name":"DynamoDB-export","version":3,
+"entries": [
+{"url":"s3://musiquizza-web-app-2018/2018-04-04-06-41-47/f9b18c1a-e41f-4ec8-bea9-9dfefb729ac0","mandatory":true}
+]}
