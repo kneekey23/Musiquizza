@@ -14,11 +14,13 @@
     <PackageReference Include="AWSSDK.CognitoIdentity" Version="3.3.2.20" />
     <PackageReference Include="AWSSDK.DAX.Client" Version="1.0.0" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.7.1" />
+    <PackageReference Include="AWSSDK.SecretsManager" Version="3.3.2.10" />
     <PackageReference Include="AWSXRayRecorder.Core" Version="2.2.0-beta" />
     <PackageReference Include="AWSXRayRecorder.Handlers.AspNetCore" Version="2.2.0-beta" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
   <ItemGroup>
