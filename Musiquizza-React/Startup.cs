@@ -1,14 +1,17 @@
-using AWSAppService;
-using AWSAppService.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Amazon.XRay.Recorder.Handlers.AspNetCore;
 using Amazon.XRay.Recorder.Core;
 using System.Xml.Linq;
-using AWSAppService.Auth;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
+using Amazon.Extensions.NETCore.Setup;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Extensions.Options;
 
 namespace Musiquizza_React
 {
@@ -28,11 +31,11 @@ namespace Musiquizza_React
         {
             services.AddOptions();
 
-            // Register the IConfiguration instance which MyOptions binds against.
-            services.Configure<AWSOptions>(Configuration.GetSection(ConfigSection));
-
-            services.AddScoped(typeof(IAWSAppService<IData>), typeof(DBDataService<IData>));
-
+            
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions()); //options are in appsettings under AWS
+            services.AddAWSService<IAmazonDynamoDB>();
+            services.AddTransient<SongService>();
+            services.AddCors();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -40,12 +43,22 @@ namespace Musiquizza_React
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors(builder =>
+            builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
+
+            app.UseHsts();
+
+            app.UseHttpsRedirection();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

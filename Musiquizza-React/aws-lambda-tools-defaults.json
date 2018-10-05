@@ -6,7 +6,7 @@
         "dotnet lambda help",
         "All the command line options for the Lambda command can be specified in this file."
     ],
-    "profile"     : "aws-internal",
+    "profile"     : "default",
     "region"      : "us-east-1",
     "configuration" : "Release",
     "framework"     : "netcoreapp2.0",

@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AWSAppService;
-using AWSAppService.Auth;
-using AWSAppService.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Musiquizza_React.Models;
@@ -16,11 +13,11 @@ namespace Musiquizza_React.Controllers
     public class LyricsController : Controller
     {
         public static Song SongReturned;
-        private readonly DBDataService<IData> _dbDataService;
+        private readonly SongService _songService;
 
-        public LyricsController(IAWSAppService<IData> dataService)
+        public LyricsController(SongService songService)
         {
-            _dbDataService = (DBDataService<IData>)dataService;
+            _songService = songService;
         }
 
         [HttpGet]
@@ -31,7 +28,7 @@ namespace Musiquizza_React.Controllers
             Random r = new Random();
             int rInt = r.Next(0, 64); //for ints
 
-            Song s = await _dbDataService.RetrieveDataFromDB<Song>(rInt);
+            Song s = await _songService.GetSong(rInt);
 
             SongReturned = s;
             await SongReturned.GetLyrics();
