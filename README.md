@@ -9,7 +9,7 @@ This walk-through provides a .NET Core serverless web application with a React A
 
 
 + Note
-  *Updates to this project will be continued to be made as it is still under code review. A word document to guide a user through the project will be   added as well.
+  *Updates to this project will be continued to be made as it is still under code review. A word document to guide a user through the project will be added as well.
 
 + Authors
   *kneekey23
