@@ -15,7 +15,8 @@ export class Quiz extends Component {
             duration: 0,
             token: "",
             deviceId: "",
-            error: ""
+            error: "",
+            songUri:""
          };
         this.handleDismiss = this.handleDismiss.bind(this);
         this.handleShow = this.handleShow.bind(this);
@@ -31,9 +32,6 @@ export class Quiz extends Component {
 
     componentDidMount(){
         this.getSecret();
-
-       
-          
     }
 
     startPlayer(){
@@ -74,9 +72,10 @@ export class Quiz extends Component {
           this.player = new window.Spotify.Player({
             name: "Nicki's Spotify Player",
             getOAuthToken: cb => { cb(token); },
+            songUri: this.state.songUri
           });
            this.createEventHandlers();
-      
+          
           // finally, connect!
           this.player.connect();
         }
@@ -102,7 +101,7 @@ export class Quiz extends Component {
       }
 
     getSecret() {
-        fetch(`${API_ROOT}/Secrets/`, {
+        fetch(`${API_ROOT}/SpotifySearch/`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -112,6 +111,21 @@ export class Quiz extends Component {
         .then(response => response.json())
         .then((result) => {
             this.setState({token: result});
+            this.getSongUri();
+        })
+    }
+
+    getSongUri() {
+        fetch(`${API_ROOT}/SpotifySearch/`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then((result) => {
+            this.setState({songUri: result});
             this.startPlayer();
         })
     }

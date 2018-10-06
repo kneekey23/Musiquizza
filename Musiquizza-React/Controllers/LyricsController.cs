@@ -28,10 +28,12 @@ namespace Musiquizza_React.Controllers
             Random r = new Random();
             int rInt = r.Next(0, 64); //for ints
 
-            Song s = await _songService.GetSong(rInt);
+            SongReturned = await _songService.GetSong(rInt);
+            TempData["Artist"] = SongReturned.Artist;
+            TempData["Title"] = SongReturned.Title;
 
-            SongReturned = s;
             await SongReturned.GetLyrics();
+            RedirectToAction("Post", "SpotifySearch");
 
             return SongReturned.SongLyric;
         }

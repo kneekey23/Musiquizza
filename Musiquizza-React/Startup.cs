@@ -36,7 +36,15 @@ namespace Musiquizza_React
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions()); //options are in appsettings under AWS
             services.AddAWSService<IAmazonDynamoDB>();
             services.AddTransient<SongService>();
-            services.AddCors();
+             services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins", builder =>
+                {
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                });
+            });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -50,12 +58,7 @@ namespace Musiquizza_React
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors(builder =>
-            builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-            );
+            app.UseCors("AllowAllOrigins");
 
             app.UseHsts();
 

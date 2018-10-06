@@ -1,22 +1,61 @@
 using System;
 using System.IO;
 using Amazon;
+using System.Linq;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Auth;
+using SpotifyAPI.Web.Models;
+using SpotifyAPI.Web.Enums;
+using Microsoft.AspNetCore.Cors;
+using Musiquizza_React.Models;
+
 
 namespace Musiquizza_React.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Secrets")]
-    public class SecretsController: Controller {
+    [EnableCors("AllowAllOrigins")]
+    [Route("api/SpotifySearch")]
+    public class SpotifySearchController: Controller {
+        private static CredentialsAuth auth;
+        private static Token token;
+        private static SpotifyWebAPI spotify;
+        private string clientId;
+        private string clientSecret;
+        public SpotifySearchController()
+        {
+           Init().Wait();
+        }
+
+        public async Task Init() {
+            clientId = await GetSecret("SpotifyClientId");
+            clientSecret = await GetSecret("SpotifyClientSecret");
+           
+                        //Create the auth object
+            auth = new CredentialsAuth(clientId, clientSecret);
+            token = await auth.GetToken();
+            spotify = new SpotifyWebAPI
+            {
+                AccessToken = token.AccessToken,
+                TokenType = token.TokenType
+            };
+             
+        } 
 
         [HttpGet]
-        public async Task<string> Get()
+        public async Task<string> Get(){
+            return await GetSecret("spotify");
+        }
+
+
+       
+        private async Task<string> GetSecret(string secretName)
         {
-            string secretName = "spotify";
+            
             string region = "us-west-2";
             string secret = "";
 
@@ -89,9 +128,16 @@ namespace Musiquizza_React.Controllers
             }
             JObject json = JObject.Parse(secret);
             
-            return json["spotify"].ToString();
+            return json[secretName].ToString();
         
         }
 
+        [HttpPost]
+        public async Task<string> Post(){
+           var q = TempData["Title"].ToString() + TempData["Artist"].ToString();
+           var tracks = await spotify.SearchItemsAsync(q, SearchType.Track, 10);
+           return tracks.Tracks.Items.FirstOrDefault().Uri;
+        }
+        
     }
 }
