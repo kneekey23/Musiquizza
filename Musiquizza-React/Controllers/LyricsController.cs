@@ -33,7 +33,6 @@ namespace Musiquizza_React.Controllers
             TempData["Title"] = SongReturned.Title;
 
             await SongReturned.GetLyrics();
-            RedirectToAction("Post", "SpotifySearch");
 
             return SongReturned.SongLyric;
         }
