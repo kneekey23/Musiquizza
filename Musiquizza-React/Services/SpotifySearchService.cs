@@ -11,22 +11,19 @@ using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
-using Microsoft.AspNetCore.Cors;
+
 using Musiquizza_React.Models;
 
 
-namespace Musiquizza_React.Controllers
-{
-    [Produces("application/json")]
-    [EnableCors("AllowAllOrigins")]
-    [Route("api/SpotifySearch")]
-    public class SpotifySearchController: Controller {
-        private static CredentialsAuth auth;
-        private static Token token;
-        private static SpotifyWebAPI spotify;
-        private string clientId;
-        private string clientSecret;
-        public SpotifySearchController()
+namespace Musiquizza_React {
+
+    public class SpotifySearchService {
+        public CredentialsAuth auth2;
+        public Token token;
+        public static SpotifyWebAPI spotify;
+        public static string clientId = "";
+        public static string clientSecret = "";
+        public SpotifySearchService()
         {
            Init().Wait();
         }
@@ -35,25 +32,52 @@ namespace Musiquizza_React.Controllers
             clientId = await GetSecret("SpotifyClientId");
             clientSecret = await GetSecret("SpotifyClientSecret");
            
-                        //Create the auth object
-            auth = new CredentialsAuth(clientId, clientSecret);
-            token = await auth.GetToken();
+             //Create the auth object
+            // auth2 = new CredentialsAuth(clientId, clientSecret);
+            // token = await auth2.GetToken();
+            // spotify = new SpotifyWebAPI
+            // {
+            //     AccessToken = token.AccessToken,
+            //     TokenType = token.TokenType
+            // };
+             
+        } 
+
+        public void AuthorizeSpotify() {
+            AuthorizationCodeAuth auth = new AuthorizationCodeAuth(clientId, clientSecret, "https://localhost:5001", "https://localhost:5001",
+                                Scope.Streaming | Scope.UserReadBirthdate | Scope.UserModifyPlaybackState | Scope.UserReadEmail | Scope.UserReadPrivate | Scope.UserReadPlaybackState | Scope.UserReadCurrentlyPlaying | Scope.UserReadRecentlyPlayed);
+            auth.AuthReceived += AuthOnAuthReceived;
+            auth.Start();
+            auth.OpenBrowser();
+            auth.Stop(0);
+        }
+
+         private async void AuthOnAuthReceived(object sender, AuthorizationCode payload)
+        {
+            Console.WriteLine("WAHOO");
+            AuthorizationCodeAuth auth = (AuthorizationCodeAuth) sender;
+            auth.Stop();
+
+            token = await auth.ExchangeCode(payload.Code);
+            Console.WriteLine("Token" + token.AccessToken);
             spotify = new SpotifyWebAPI
             {
                 AccessToken = token.AccessToken,
                 TokenType = token.TokenType
             };
-             
-        } 
-
-        [HttpGet]
-        public async Task<string> Get(){
-            return await GetSecret("spotify");
+      
         }
 
 
+
+        public async Task<string> GetSongUri(string q){
+            var tracks = await spotify.SearchItemsAsync(q, SearchType.Track, 10);
+            string uri = tracks.Tracks.Items.Count > 0 ? tracks.Tracks.Items.FirstOrDefault().Uri : "";
+            return uri;
+        }
+
        
-        private async Task<string> GetSecret(string secretName)
+        public async Task<string> GetSecret(string secretName)
         {
             
             string region = "us-west-2";
@@ -132,12 +156,7 @@ namespace Musiquizza_React.Controllers
         
         }
 
-        [HttpPost]
-        public async Task<string> Post(){
-           var q = TempData["Title"].ToString() + TempData["Artist"].ToString();
-           var tracks = await spotify.SearchItemsAsync(q, SearchType.Track, 10);
-           return tracks.Tracks.Items.FirstOrDefault().Uri;
-        }
+
         
     }
 }

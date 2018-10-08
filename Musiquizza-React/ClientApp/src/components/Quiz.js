@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Row, Col, Button, FormControl, FormGroup, ControlLabel, Alert } from 'react-bootstrap';
+import queryString from 'query-string';
 import { API_ROOT } from './api-config';
 
 export class Quiz extends Component {
@@ -16,7 +17,7 @@ export class Quiz extends Component {
             token: "",
             deviceId: "",
             error: "",
-            songUri:""
+            songUri:this.props.uri
          };
         this.handleDismiss = this.handleDismiss.bind(this);
         this.handleShow = this.handleShow.bind(this);
@@ -24,14 +25,22 @@ export class Quiz extends Component {
         this.handleArtistChange = this.handleArtistChange.bind(this);
         this.handleFormReset = this.handleFormReset.bind(this);
         this.sendAnswers = this.sendAnswers.bind(this);
-        this.getSecret = this.getSecret.bind(this);
+       
         this.startPlayer = this.startPlayer.bind(this);
+   
 
         this.playerCheckInterval = null;
     }
 
-    componentDidMount(){
-        this.getSecret();
+    componentWillReceiveProps(nextProps){
+        this.setState({songUri: nextProps.uri});
+       
+    }
+
+    componentDidMount() {
+        const values = queryString.parse(this.props.location.search)
+        this.setState({token: values.code}, () => this.startPlayer());
+        
     }
 
     startPlayer(){
@@ -71,8 +80,7 @@ export class Quiz extends Component {
         clearInterval(this.playerCheckInterval);
           this.player = new window.Spotify.Player({
             name: "Nicki's Spotify Player",
-            getOAuthToken: cb => { cb(token); },
-            songUri: this.state.songUri
+            getOAuthToken: cb => { cb(token); }
           });
            this.createEventHandlers();
           
@@ -93,42 +101,32 @@ export class Quiz extends Component {
         this.player.on('player_state_changed', state => { console.log(state); });
       
         // Ready
-        this.player.on('ready', data => {
+        this.player.on('ready', async data => {
           let { device_id } = data;
           console.log("Let the music play on!");
-          this.setState({ deviceId: device_id });
+          await this.setState({ deviceId: device_id });
+          this.transferPlaybackHere();
         });
       }
 
-    getSecret() {
-        fetch(`${API_ROOT}/SpotifySearch/`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => response.json())
-        .then((result) => {
-            this.setState({token: result});
-            this.getSongUri();
-        })
-    }
+      transferPlaybackHere() {
+        const { deviceId, token } = this.state;
+        fetch("https://api.spotify.com/v1/me/player/", {
+          method: "PUT",
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            "device_ids": [ deviceId ],
+            "play": true,
+            "uris": [this.state.songUri]
+          }),
+        });
+      }
 
-    getSongUri() {
-        fetch(`${API_ROOT}/SpotifySearch/`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => response.json())
-        .then((result) => {
-            this.setState({songUri: result});
-            this.startPlayer();
-        })
-    }
+
+
 
     sendAnswers(e) {
         e.preventDefault();
@@ -164,12 +162,15 @@ export class Quiz extends Component {
     }
 
     render() {
-        if (this.state.show) {
+        let alert;
+        if(this.state.show){
+            alert = <ChooseAlert displayError={this.state.displayError} onDismiss={this.handleDismiss} />
+        }
             return (
-
+                <div>
                 <Row id="quizForm">
                     <Col sm={12}>
-                        <ChooseAlert displayError={this.state.displayError} onDismiss={this.handleDismiss} />
+                    {alert}
                         <form>
                             <FormGroup>
                                 <ControlLabel>Artist</ControlLabel>
@@ -189,42 +190,13 @@ export class Quiz extends Component {
                                     onChange={this.handleTitleChange}
                                 />
                             </FormGroup>
-                            <Button bsStyle="success" onClick={this.sendAnswers} > Submit</Button>
+                            <Button bsStyle="primary" onClick={this.sendAnswers} > Submit</Button>
                         </form>
                     </Col>
                 </Row>
+                </div>
             )
-        }
-        else {
-            return (
-
-                <Row id="quizForm">
-                    <Col sm={12}>
-                        <form>
-                            <FormGroup>
-                                <ControlLabel>Artist</ControlLabel>
-                                <FormControl
-                                    type="text"
-                                    value={this.state.artist}
-                                    placeholder="Enter the artist"
-                                    onChange={this.handleArtistChange}
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <ControlLabel>Song Title</ControlLabel>
-                                <FormControl
-                                    type="text"
-                                    value={this.state.title}
-                                    placeholder="Enter the song title"
-                                    onChange={this.handleTitleChange}
-                                />
-                            </FormGroup>
-                            <Button bsStyle="success" onClick={this.sendAnswers} > Submit</Button>
-                        </form>
-                    </Col>
-                </Row>
-            )
-        }
+        
     }
 }
 
@@ -245,11 +217,6 @@ export class ErrorAlert extends Component {
 }
 
 export class ChooseAlert extends Component {
-    constructor(props) {
-        super(props)
-        
-    }
-
     isError = this.props.displayError;
 
     render() {

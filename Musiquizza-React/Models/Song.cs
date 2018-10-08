@@ -66,12 +66,12 @@ namespace Musiquizza_React
                     { throw new MemberAccessException(); }
 
                 buildString.AppendJoin('&', MusixMatchAPI.API_APIKEY, MusixMatchAPI.API_TRACK_PARAM + Uri.EscapeUriString(this.Title), MusixMatchAPI.API_ARTIST_PARAM + Uri.EscapeUriString(this.Artist));
-                Console.WriteLine(buildString.ToString());
+               
 
                 using (httpAPIClient = new HttpClient())
                 {
                     apiResult = await httpAPIClient.GetStringAsync(buildString.ToString());
-                    Console.WriteLine(apiResult);
+            
                 }
                
                 JObject apiJSON = JObject.Parse(apiResult);

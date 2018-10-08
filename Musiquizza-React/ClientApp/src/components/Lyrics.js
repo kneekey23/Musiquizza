@@ -1,40 +1,34 @@
 ﻿import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
-import { API_ROOT } from './api-config';
+
 
 export class Lyrics extends Component {
-    constructor() {
-        super();
-        this.state = { lyrics: "" };
+    constructor(props) {
+        super(props);
+        this.state = { lyrics: this.props.lyrics };
         this.getLyrics = this.getLyrics.bind(this);
     }
 
     getLyrics() {
-        fetch(`${API_ROOT}/Lyrics`, {
-            headers: new Headers({
-                "Accept": "application/json"
-            })
-        })
-            .then(response => response.json())
-            .then(lyrics => this.setState({ lyrics: lyrics }))
-            .catch(error => console.log(error))
+        this.props.getLyrics();
+        this.setState({lyrics: this.props.lyrics});
     }
 
-    componentDidMount() {
-        this.getLyrics();
+
+    componentWillReceiveProps(nextProps){
+        this.setState({lyrics: nextProps.lyrics});
     }
 
     render() {
-        let lyrics = this.state.lyrics;
 
         return (
              
                     <div className="row">
                         <div className="col-md-10">
-                            <b>{lyrics}</b>
+                            <b>{this.state.lyrics}</b>
                         </div>
                         <div className="col-md-2">
-                            <Button onClick={this.getLyrics} bsStyle="success">Refresh for new Lyric </Button>
+                            <Button onClick={this.getLyrics} bsStyle="info">Refresh for new Lyric </Button>
                         </div>
                     </div>
                
