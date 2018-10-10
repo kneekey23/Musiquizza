@@ -1,6 +1,5 @@
 ﻿import React, { Component } from 'react';
 import { Row, Col, Button, FormControl, FormGroup, ControlLabel, Alert } from 'react-bootstrap';
-import queryString from 'query-string';
 import { API_ROOT } from './api-config';
 
 export class Quiz extends Component {
@@ -32,14 +31,8 @@ export class Quiz extends Component {
         this.playerCheckInterval = null;
     }
 
-    componentWillReceiveProps(nextProps){
-        this.setState({songUri: nextProps.uri});
-       
-    }
 
     componentDidMount() {
-     
-      //  this.setState({token: values.code}, () => this.startPlayer());
         this.getToken();
     }
 
@@ -133,7 +126,8 @@ export class Quiz extends Component {
                     'Content-Type': 'application/json',
                 }
               })
-              .then(response => console.log(response));
+              .then(response => response.json())
+              .then(result => this.setState({token: result}, () => this.startPlayer()));
 
       }
 
@@ -167,7 +161,7 @@ export class Quiz extends Component {
                 this.handleFormReset();
             },
             (error) => {
-                this.handleShow();
+                this.handleError();
             })
     }
 

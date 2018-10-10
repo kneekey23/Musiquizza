@@ -78,6 +78,7 @@ namespace Musiquizza_React
                 options.Scope.Add("user-read-birthdate");
                 options.Scope.Add("user-modify-playback-state");
                 options.SaveTokens = true;
+                
             
 
             });

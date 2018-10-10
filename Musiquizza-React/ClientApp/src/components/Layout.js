@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Col, Grid, Row } from 'react-bootstrap';
 import { NavMenu } from './NavMenu';
-import PropTypes from 'prop-types';
 
 
 
@@ -18,10 +17,6 @@ class Layout extends Component {
   authSpotify(e) {
     e.preventDefault();
     window.location = '/api/Authentication'; 
-    }
-
-    getLyrics(){
-        this.props.getLyrics();
     }
 
     render() {
@@ -49,9 +44,5 @@ class Layout extends Component {
     );
   }
 }
-
-Layout.contextTypes = {
-    router: PropTypes.func.isRequired
-  };
 
 export default Layout;
