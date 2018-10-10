@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
+
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+import Layout from './components/Layout';
 import { Lyrics } from './components/Lyrics';
 import { Quiz } from './components/Quiz';
 import { API_ROOT } from './components/api-config';
+
+
+var baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
+
+if (process.env.NODE_ENV === 'production') {
+   
+    baseUrl = "Prod";
+}
+
 
 export default class App extends Component {
 
@@ -32,18 +42,17 @@ export default class App extends Component {
 
   render() {
       return (
- 
+        <Router basename={baseUrl}>
         <Layout>
             <section id="lyrics">
                 <div className="container">
-                    <Route path='/' render={props => <Lyrics lyrics= {this.state.lyrics} getLyrics={this.getLyrics} {...props}/>} />
-                      <Route path='/' render={props => <Quiz uri={this.state.uri} {...props} />} />
+                    <Route exact path='/game' render={props => <Lyrics lyrics= {this.state.lyrics} getLyrics={this.getLyrics} {...props}/>} />
+                      <Route exact path='/game' render={props => <Quiz uri={this.state.uri} {...props} />} />
                       <Route path='/admin' component={Quiz} />
                 </div>
             </section>
         </Layout>
-             
-           
+        </Router>
     );
   }
 }

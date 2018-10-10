@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="2.1.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Spotify" Version="2.0.0" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.14.4" />
     <PackageReference Include="AWSSDK.SecretsManager" Version="3.3.2.10" />
     <PackageReference Include="AWSSDK.XRay" Version="3.3.3.4" />

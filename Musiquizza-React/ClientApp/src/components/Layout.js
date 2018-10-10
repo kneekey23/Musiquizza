@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
 import { Button, Col, Grid, Row } from 'react-bootstrap';
 import { NavMenu } from './NavMenu';
-import { API_ROOT } from './api-config';
+import PropTypes from 'prop-types';
 
-export class Layout extends Component {
+
+
+class Layout extends Component {
+
+    constructor(props,context) {
+        super(props, context);
+    
+        this.authSpotify = this.authSpotify.bind(this);
+    }
 
   displayName = Layout.name
 
-  authSpotify() {
-    fetch(`${API_ROOT}/Lyrics/AuthSpotify`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        }
-    })
-}
+  authSpotify(e) {
+    e.preventDefault();
+    window.location = '/api/Authentication'; 
+    }
+
+    getLyrics(){
+        this.props.getLyrics();
+    }
 
     render() {
 
@@ -42,3 +49,9 @@ export class Layout extends Component {
     );
   }
 }
+
+Layout.contextTypes = {
+    router: PropTypes.func.isRequired
+  };
+
+export default Layout;

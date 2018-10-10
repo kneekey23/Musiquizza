@@ -25,7 +25,7 @@ export class Quiz extends Component {
         this.handleArtistChange = this.handleArtistChange.bind(this);
         this.handleFormReset = this.handleFormReset.bind(this);
         this.sendAnswers = this.sendAnswers.bind(this);
-       
+        this.getToken = this.getToken.bind(this);
         this.startPlayer = this.startPlayer.bind(this);
    
 
@@ -38,9 +38,9 @@ export class Quiz extends Component {
     }
 
     componentDidMount() {
-        const values = queryString.parse(this.props.location.search)
-        this.setState({token: values.code}, () => this.startPlayer());
-        
+     
+      //  this.setState({token: values.code}, () => this.startPlayer());
+        this.getToken();
     }
 
     startPlayer(){
@@ -125,7 +125,17 @@ export class Quiz extends Component {
         });
       }
 
+      getToken() {
+              fetch(`${API_ROOT}/Authentication/token`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+              })
+              .then(response => console.log(response));
 
+      }
 
 
     sendAnswers(e) {

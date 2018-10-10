@@ -10,32 +10,29 @@ using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Musiquizza_React.Controllers
 {
     [Produces("application/json")]
     [EnableCors("AllowAllOrigins")]
     [Route("api/Lyrics")]
+    [Authorize]
     public class LyricsController : Controller
     {
         public static Song SongReturned;
         private readonly SongService _songService;
 
-        private readonly SpotifySearchService _spotifyService;
+      
 
-        public LyricsController(SongService songService, SpotifySearchService spotifySearchService)
+        public LyricsController(SongService songService)
         {
             _songService = songService;
-            _spotifyService = spotifySearchService;
         }
-
+        
         [HttpGet("GetLyric")]
         public async Task<JsonResult> Get()
         {
-            //if no token, get out because the rest will fail
-            if(_spotifyService.token == null){
-                return Json(new {lyrics = "", uri = ""});
-            }
 
             //choose a random number and pull song on that id
             Random r = new Random();
@@ -43,11 +40,11 @@ namespace Musiquizza_React.Controllers
 
             SongReturned = await _songService.GetSong(rInt);
             var q = SongReturned.Title + " " + SongReturned.Artist;
-            string uri = await _spotifyService.GetSongUri(q);
+           // string uri = await _spotifyService.GetSongUri(q);
 
             await SongReturned.GetLyrics();
 
-            return Json(new {lyrics = SongReturned.SongLyric, uri = uri});
+            return Json(new {lyrics = SongReturned.SongLyric});
         }
 
         [HttpPost]
@@ -65,10 +62,6 @@ namespace Musiquizza_React.Controllers
 
         }
 
-        [HttpGet("AuthSpotify")]
-        public void AuthSpotify(){
-            _spotifyService.AuthorizeSpotify();
-        }
 
 
     }
