@@ -30,7 +30,7 @@ class Layout extends Component {
                             <div className="intro-text">
                                 <div className="intro-lead-in">Welcome To Musiquizza!</div>
                             <div className="intro-heading text-uppercase">For the Musically challenged</div>
-                            <Button bsStyle="warning" bsSize="large" className="playBtn" onClick={this.authSpotify}>Play the Game Now!</Button>
+                            <Button bsStyle="success" bsSize="large" className="playBtn" onClick={this.authSpotify}>Login with Spotify to play</Button>
                             </div>
                         </div>
                     </header>
