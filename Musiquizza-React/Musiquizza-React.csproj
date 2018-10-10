@@ -21,8 +21,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.6" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="SpotifyAPI.Web.Auth" Version="3.0.2" />
-    <PackageReference Include="SpotifyAPI.Web" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="$(SpaRoot)**" />

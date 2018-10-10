@@ -39,6 +39,7 @@ namespace Musiquizza_React
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions()); //options are in appsettings under AWS
             services.AddAWSService<IAmazonDynamoDB>();
             services.AddTransient<SongService>();
+            services.AddTransient<SpotifyService>();
             
              services.AddCors(options =>
             {
