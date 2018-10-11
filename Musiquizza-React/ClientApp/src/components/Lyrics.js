@@ -1,27 +1,25 @@
 ﻿import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
-import { API_ROOT } from './api-config';
+
 
 
 export class Lyrics extends Component {
     constructor(props) {
         super(props);
-        this.state = { lyrics: "" };
+        this.state = { lyrics: this.props.lyrics };
         this.getLyrics = this.getLyrics.bind(this);
     }
 
     componentDidMount() {
         this.getLyrics();
     }
+
+     componentWillReceiveProps(nextProps){
+        this.setState({lyrics: nextProps.lyrics});
+    }
     getLyrics() {
-        fetch(`${API_ROOT}/Lyrics/GetLyric`, {
-            headers: new Headers({
-                "Accept": "application/json"
-            })
-        })
-            .then(response => response.json())
-            .then(json => this.setState({ lyrics: json.lyrics }))
-            .catch(error => console.log(error))
+        this.props.getLyrics();
+        this.setState({lyrics: this.props.lyrics});
         }
 
 

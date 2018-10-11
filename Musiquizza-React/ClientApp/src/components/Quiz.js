@@ -36,6 +36,12 @@ export class Quiz extends Component {
         this.getToken();
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({songUri: nextProps.uri}, () => this.transferPlaybackHere());
+       
+    }
+
+
     startPlayer(){
         if (this.state.token !== "") {
   
@@ -103,19 +109,20 @@ export class Quiz extends Component {
       }
 
       transferPlaybackHere() {
+
         const { deviceId, token } = this.state;
-        fetch("https://api.spotify.com/v1/me/player/", {
+        if(deviceId != "" && this.state.songUri != ""){
+        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
           method: "PUT",
           headers: {
             authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            "device_ids": [ deviceId ],
-            "play": true,
             "uris": [this.state.songUri]
           }),
         });
+        }
       }
 
       getToken() {
