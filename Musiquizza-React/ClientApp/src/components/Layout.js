@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Col, Grid, Row } from 'react-bootstrap';
 import { NavMenu } from './NavMenu';
+import { API_ROOT } from './api-config';
 
 
 
@@ -8,15 +9,23 @@ class Layout extends Component {
 
     constructor(props,context) {
         super(props, context);
-    
+        this.state = {
+            token: ''
+        };
         this.authSpotify = this.authSpotify.bind(this);
+        this.getToken = this.getToken.bind(this);
     }
 
   displayName = Layout.name
 
   authSpotify(e) {
     e.preventDefault();
-    window.location = '/api/Authentication'; 
+    window.location = `${API_ROOT}/Authentication`; 
+    }
+
+    getToken(val) {
+        console.log(val);
+        this.setState({token: val});
     }
 
     render() {

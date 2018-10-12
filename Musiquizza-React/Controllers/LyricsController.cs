@@ -15,7 +15,6 @@ namespace Musiquizza_React.Controllers
     [Produces("application/json")]
     [EnableCors("AllowAllOrigins")]
     [Route("api/Lyrics")]
-    [Authorize]
     public class LyricsController : Controller
     {
         public static Song SongReturned;

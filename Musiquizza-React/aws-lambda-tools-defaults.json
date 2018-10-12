@@ -9,7 +9,7 @@
     "profile"     : "default",
     "region"      : "us-east-1",
     "configuration" : "Release",
-    "framework"     : "netcoreapp2.0",
+    "framework"     : "netcoreapp2.1",
     "s3-prefix"     : "Musiquizza/",
     "template"      : "serverless.template",
     "template-parameters" : "",

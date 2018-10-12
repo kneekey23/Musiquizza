@@ -11,7 +11,7 @@ var baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 
 if (process.env.NODE_ENV === 'production') {
    
-    baseUrl = "Prod";
+    baseUrl = "/Prod/";
 }
 
 
@@ -21,6 +21,7 @@ export default class App extends Component {
         super();
         this.state = { lyrics: "", uri: "" };
         this.getLyrics = this.getLyrics.bind(this);
+        
     }
   displayName = App.name
    componentDidMount() {
@@ -41,15 +42,15 @@ export default class App extends Component {
   render() {
       return (
         <Router basename={baseUrl}>
-        <Layout>
-            <section id="lyrics">
-                <div className="container">
-                      <Route path='/game' render={props => <Lyrics lyrics= {this.state.lyrics} getLyrics={this.getLyrics} {...props}/>} />
-                      <Route path='/game' render={props => <Quiz uri={this.state.uri} {...props} />} />
-                      <Route path='/admin' component={Quiz} />
-                </div>
-            </section>
-        </Layout>
+            <Layout>
+                <section id="lyrics">
+                    <div className="container">
+                        <Route path='/' render={props => <Lyrics uri={this.state.uri} lyrics= {this.state.lyrics} getLyrics={this.getLyrics} {...props}/>} />
+                        <Route path='/' render={props => <Quiz uri={this.state.uri} {...props} />} />
+                        <Route path='/admin' component={Quiz} />
+                    </div>
+                </section>
+            </Layout>
         </Router>
     );
   }

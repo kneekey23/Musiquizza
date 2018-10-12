@@ -15,10 +15,10 @@
       "Type" : "AWS::Serverless::Function",
       "Properties": {
         "Handler": "Musiquizza-React::Musiquizza.LambdaEntryPoint::FunctionHandlerAsync",
-        "Runtime": "dotnetcore2.0",
+        "Runtime": "dotnetcore2.1",
         "CodeUri": "",
         "MemorySize": 512,
-        "Timeout": 30,
+        "Timeout": 900,
         "Role": null,
         "Policies": [ "AWSLambdaFullAccess" ],
 		"Tracing": "Active",
@@ -42,10 +42,10 @@
       "Type" : "AWS::Serverless::Function",
       "Properties": {
         "Handler": "Musiquizza-React::Musiquizza.LambdaEntryPoint::FunctionHandlerAsync",
-        "Runtime": "dotnetcore2.0",
+        "Runtime": "dotnetcore2.1",
         "CodeUri": "",
         "MemorySize": 512,
-        "Timeout": 30,
+        "Timeout": 900,
         "Role": null,
         "Policies": [ "AWSLambdaFullAccess" ],
         "Environment" : {
