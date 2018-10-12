@@ -9,14 +9,7 @@ export class Quiz extends Component {
             artist: "", 
             title: "", 
             show: false, 
-            displayError: false,
-            playing: false,
-            position: 0,
-            duration: 0,
-            token: "",
-            deviceId: "",
-            error: "",
-            songUri:this.props.uri
+            displayError: false
          };
         this.handleDismiss = this.handleDismiss.bind(this);
         this.handleShow = this.handleShow.bind(this);
@@ -24,30 +17,10 @@ export class Quiz extends Component {
         this.handleArtistChange = this.handleArtistChange.bind(this);
         this.handleFormReset = this.handleFormReset.bind(this);
         this.sendAnswers = this.sendAnswers.bind(this);
-        this.getToken = this.getToken.bind(this);
-        this.startPlayer = this.startPlayer.bind(this);
-   
+        
 
-        this.playerCheckInterval = null;
     }
 
-
-    componentDidMount() {
-        this.getToken();
-    }
-
-    componentWillReceiveProps(nextProps){
-        this.setState({songUri: nextProps.uri}, () => this.transferPlaybackHere());
-       
-    }
-
-
-    startPlayer(){
-        if (this.state.token !== "") {
-  
-            this.playerCheckInterval = setInterval(() => this.checkForPlayer(), 1000);
-        }
-    }
 
     handleTitleChange(e) {
         this.setState({ title: e.target.value });
@@ -71,72 +44,6 @@ export class Quiz extends Component {
     handleFormReset() {
         this.setState({ artist: "", title: "" });
     }
-
-    checkForPlayer() {
-        const { token } = this.state;
-      
-        if (window.Spotify !== null) {
-        clearInterval(this.playerCheckInterval);
-          this.player = new window.Spotify.Player({
-            name: "Nicki's Spotify Player",
-            getOAuthToken: cb => { cb(token); }
-          });
-           this.createEventHandlers();
-          
-          // finally, connect!
-          this.player.connect();
-        }
-      }
-
-      createEventHandlers() {
-        this.player.on('initialization_error', e => { console.error(e); });
-        this.player.on('authentication_error', e => {
-          console.error(e);
-        });
-        this.player.on('account_error', e => { console.error(e); });
-        this.player.on('playback_error', e => { console.error(e); });
-      
-        // Playback status updates
-        this.player.on('player_state_changed', state => { console.log(state); });
-      
-        // Ready
-        this.player.on('ready', async data => {
-          let { device_id } = data;
-          console.log("Let the music play on!");
-          await this.setState({ deviceId: device_id });
-          this.transferPlaybackHere();
-        });
-      }
-
-      transferPlaybackHere() {
-
-        const { deviceId, token } = this.state;
-        if(deviceId != "" && this.state.songUri != ""){
-        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
-          method: "PUT",
-          headers: {
-            authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            "uris": [this.state.songUri]
-          }),
-        });
-        }
-      }
-
-      getToken() {
-              fetch(`${API_ROOT}/Authentication/token`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }
-              })
-              .then(response => response.json())
-              .then(result => this.setState({token: result}, () => this.startPlayer()));
-
-      }
 
 
     sendAnswers(e) {

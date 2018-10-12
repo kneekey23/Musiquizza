@@ -38,10 +38,11 @@ namespace Musiquizza_React.Controllers
 
             SongReturned = await _songService.GetSong(rInt);
             var q = SongReturned.Title + " " + SongReturned.Artist;
-            var access_token = await HttpContext.GetTokenAsync("Spotify", "access_token");
-            SpotifyUser spotifyUser = _spotifyService.GetUserProfile(access_token);
+           // var access_token = await HttpContext.GetTokenAsync("Spotify", "access_token");
+           // SpotifyUser spotifyUser = _spotifyService.GetUserProfile(access_token);
 
-            SpotifyTracks songs = _spotifyService.SearchTracks(spotifyUser.UserId, access_token, q);
+            // SpotifyTracks songs = _spotifyService.SearchTracks(spotifyUser.UserId, access_token, q);
+            SpotifyTracks songs = _spotifyService.SearchTracks(q);
             var uri = songs.Tracks.Items.Count() > 0 ? songs.Tracks.Items.FirstOrDefault().Uri : "";
 
             await SongReturned.GetLyrics();

@@ -59,30 +59,6 @@ namespace Musiquizza_React
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);;
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-            .AddCookie(options =>
-            {
-                options.LoginPath = "/login";
-                options.LogoutPath = "/signout";
-            })
-            .AddSpotify(options => {
-                // options.ClientId = System.Environment.GetEnvironmentVariable("SpotifyClientId");
-                // options.ClientSecret = System.Environment.GetEnvironmentVariable("SpotifyClientSecret");
-                options.ClientId = "cd63690c687f48538e3f7e6b38ecd8f6";
-                options.ClientSecret = "1643da7651574c358bb9414eb76be8e3";
-                options.Scope.Add("streaming");
-                options.Scope.Add("user-read-private");
-                options.Scope.Add("user-read-email");
-                options.Scope.Add("user-read-birthdate");
-                options.Scope.Add("user-modify-playback-state");
-                options.SaveTokens = true;
-                
-            
-
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,18 +82,12 @@ namespace Musiquizza_React
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseAuthentication();
-            //app.UseMvc();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
 
-                // routes.MapSpaFallbackRoute(
-                //     name: "spa-fallback",
-                //     defaults: new { controller = "Authentication", action = "SignIn" });
             });
 
             app.UseSpa(spa =>

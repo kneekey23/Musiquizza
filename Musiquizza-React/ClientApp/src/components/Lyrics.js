@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 export class Lyrics extends Component {
     constructor(props) {
         super(props);
-        this.state = { lyrics: this.props.lyrics, spotifyUrl: "https://open.spotify.com/embed/track/", uri: this.props.uri };
+        this.state = { lyrics: this.props.lyrics, spotifyUrl: `https://open.spotify.com/embed/track/${this.props.uri.replace("spotify:track:", "")}`};
         this.getLyrics = this.getLyrics.bind(this);
         
     }
@@ -16,7 +16,7 @@ export class Lyrics extends Component {
     }
 
      componentWillReceiveProps(nextProps){
-        this.setState({lyrics: nextProps.lyrics, uri: nextProps.uri});
+        this.setState({lyrics: nextProps.lyrics, spotifyUrl: `https://open.spotify.com/embed/track/${this.props.uri.replace("spotify:track:", "")}`});
         
     }
     getLyrics() {
@@ -34,10 +34,10 @@ export class Lyrics extends Component {
                             <b>{this.state.lyrics}</b>
                         </div>
                         <div className="col-md-2">
-                            <Button onClick={this.getLyrics} bsStyle="info">Refresh for new Lyric </Button>
+                        <iframe src={this.state.spotifyUrl} width="80" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                         </div>
                         <div className="col-md-2">
-                        <iframe src={this.state.spotifyUrl} width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                            <Button onClick={this.getLyrics} bsStyle="info">Refresh for new Lyric </Button>
                         </div>
                     </div>
                
