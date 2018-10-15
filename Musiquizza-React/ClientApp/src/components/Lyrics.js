@@ -11,17 +11,13 @@ export class Lyrics extends Component {
         
     }
 
-    componentDidMount() {
-       // this.getLyrics();
-    }
-
      componentWillReceiveProps(nextProps){
-        this.setState({lyrics: nextProps.lyrics, spotifyUrl: `https://open.spotify.com/embed/track/${this.props.uri.replace("spotify:track:", "")}`});
+        this.setState({lyrics: nextProps.lyrics, spotifyUrl: `https://open.spotify.com/embed/track/${nextProps.uri.replace("spotify:track:", "")}`});
         
     }
     getLyrics() {
         this.props.getLyrics();
-        this.setState({lyrics: this.props.lyrics, spotifyUrl: `https://open.spotify.com/embed/track/${this.props.uri.replace("spotify:track:", "")}`});
+       // this.setState({lyrics: this.props.lyrics, spotifyUrl: `https://open.spotify.com/embed/track/${this.props.uri.replace("spotify:track:", "")}`});
         }
 
 

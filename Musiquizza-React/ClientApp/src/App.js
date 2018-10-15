@@ -24,6 +24,7 @@ export default class App extends Component {
         
     }
   displayName = App.name
+  
    componentDidMount() {
       this.getLyrics();
       
@@ -46,7 +47,7 @@ export default class App extends Component {
                 <section id="lyrics">
                     <div className="container">
                         <Route path='/' render={props => <Lyrics uri={this.state.uri} lyrics= {this.state.lyrics} getLyrics={this.getLyrics} {...props}/>} />
-                        <Route path='/' render={props => <Quiz uri={this.state.uri} {...props} />} />
+                        <Route path='/' render={props => <Quiz {...props} />} />
                         <Route path='/admin' component={Quiz} />
                     </div>
                 </section>
