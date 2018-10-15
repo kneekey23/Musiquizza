@@ -12,7 +12,7 @@ export class Lyrics extends Component {
     }
 
     componentDidMount() {
-        this.getLyrics();
+       // this.getLyrics();
     }
 
      componentWillReceiveProps(nextProps){
@@ -21,7 +21,7 @@ export class Lyrics extends Component {
     }
     getLyrics() {
         this.props.getLyrics();
-        this.setState({lyrics: this.props.lyrics});
+        this.setState({lyrics: this.props.lyrics, spotifyUrl: `https://open.spotify.com/embed/track/${this.props.uri.replace("spotify:track:", "")}`});
         }
 
 
