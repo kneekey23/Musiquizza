@@ -61,8 +61,8 @@ namespace Musiquizza_React {
                 SpotifyAuthorization auth = new SpotifyAuthorization();
                 WebRequest request = WebRequest.Create("https://accounts.spotify.com/api/token");
                 request.Method = "POST";
-                string clientId = "cd63690c687f48538e3f7e6b38ecd8f6";
-                string clientSecret = "1643da7651574c358bb9414eb76be8e3";
+                string clientId = Environment.GetEnvironmentVariable("clientId");
+                string clientSecret = Environment.GetEnvironmentVariable("clientSecret");
                 var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(clientId + ":" + clientSecret);
                 var encoded64 = System.Convert.ToBase64String(plainTextBytes);
                 request.Headers.Set("Authorization", "Basic" + " " + encoded64);

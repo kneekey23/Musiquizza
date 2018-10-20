@@ -108,7 +108,7 @@ export class Quiz extends Component {
                                     onChange={this.handleTitleChange}
                                 />
                             </FormGroup>
-                            <Button bsStyle="primary" onClick={this.sendAnswers} > Submit</Button>
+                            <Button bsStyle="warning" onClick={this.sendAnswers} > Submit</Button>
                         </form>
                     </Col>
                 </Row>
